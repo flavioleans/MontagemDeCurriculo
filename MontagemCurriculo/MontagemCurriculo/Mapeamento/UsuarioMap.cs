@@ -1,0 +1,30 @@
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using MontagemCurriculo.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace MontagemCurriculo.Mapeamento
+{
+    public class UsuarioMap : IEntityTypeConfiguration<Usuario>
+    {
+        public void Configure(EntityTypeBuilder<Usuario> builder)
+        {
+            //chave primaria
+            builder.HasKey(u => u.UsuarioId);
+
+            builder.Property(u => u.Email).IsRequired().HasMaxLength(50);
+            builder.HasIndex(u => u.Email).IsUnique();
+
+            builder.Property(u => u.Senha).IsRequired().HasMaxLength(50);
+
+            //relacionamento
+            builder.HasMany(u => u.Curriculos).WithOne(u => u.Usuario).OnDelete(DeleteBehavior.Cascade);
+            builder.HasMany(u => u.InformacoesLogin).WithOne(u => u.Usuario).OnDelete(DeleteBehavior.Cascade);
+
+            builder.ToTable("Usuarios");
+        }
+    }
+}

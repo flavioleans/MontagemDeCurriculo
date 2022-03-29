@@ -1,0 +1,10 @@
+1 criar a classes modelo com data annotation.
+2 criar a classe contexto e inserir os dbset das classes.
+3 criar o mapeamento das classes ("nomeClasse.Map") dentro da pasta mapeamento.
+4 voltar para a classe contexto e adicionar no OnModelCreating a configuração dos mapeamentos.
+ex: 
+	protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfiguration(new CurriculoMap());
+           
+        }
